@@ -41,94 +41,67 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # ==================== HOME PAGE (CENTERED LAYOUT) ====================
-# ==================== HOME PAGE (BALANCED PC & MOBILE) ====================
+        # ==================== HOME PAGE (RESPONSIVE FIX) ====================
 if not st.session_state.active:
-    # 1. Custom CSS for Perfect Gap Control
-    st.markdown("""
-        <style>
-        /* Mobile vs PC Alignment */
-        .home-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding-top: 5vh;
-        }
-        
-        .responsive-logo {
-            width: 100%;
-            max-width: 550px;
-            height: auto;
-            margin-bottom: -5%; /* Dynamic gap based on screen size */
-        }
+    # 1. Spacing for Vertical Center
+    for _ in range(3): 
+        st.write("") 
 
-        .dept-text {
-            color: #FFDF00;
-            font-weight: bold;
-            font-size: clamp(16px, 2.5vw, 28px);
-            margin-top: -80px; /* Base gap fix */
-            line-height: 1.2;
-            z-index: 10;
-        }
-
-        /* Adjustments for Mobile specifically */
-        @media screen and (max-width: 600px) {
-            .dept-text {
-                margin-top: -40px !important; /* Mobile lo logo paiki vellakunda adjustment */
-                font-size: 16px;
-            }
-            .responsive-logo {
-                max-width: 300px;
-            }
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
-    # 2. Layout
+    # 2. Layout Column
     _, col, _ = st.columns([0.1, 5, 0.1])
     
     with col:
-        # LOGO & DEPT NAME (Using HTML for better gap control)
-        st.markdown(f"""
-            <div class="home-container">
-                <img src="https://raw.githubusercontent.com/user-attachments/assets/logo_file" class="responsive-logo">
-                <p class="dept-text">DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE</p>
-                <hr style="width: 70%; border: 0.5px solid #444; margin: 15px auto;">
-            </div>
-        """, unsafe_allow_html=True)
-        
-        # Local Logo Fallback (If HTML image doesn't load)
+        # --- LOGO BLOCK ---
         try:
-             st.image(LOGO_FILE, use_container_width=True)
+            # HTML method vadi responsive ga gap control chesthunnam
+            st.markdown(f"""
+                <div style='text-align: center; display: flex; flex-direction: column; align-items: center;'>
+                    <img src="https://raw.githubusercontent.com/user-attachments/assets/logo_file" 
+                         style='width: 70%; max-width: 600px; height: auto;'>
+                    
+                    <p style='color: #FFDF00; font-size: clamp(16px, 3vw, 30px); font-weight: bold; 
+                    margin-top: -8vw; margin-bottom: 0px; text-transform: uppercase;'>
+                        DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE
+                    </p>
+                    
+                    <hr style='margin: 2vw auto; width: 80%; border: 0.5px solid #444;'>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            # Note: పై HTML image logic work avvalante LOGO_FILE local ga upload ayyi undali.
+            # Local file kabatti normal Streamlit image vaduthu kinda negative margin thaggiddham:
+            st.image(LOGO_FILE, use_container_width=True)
+            
         except:
-             pass
+            st.markdown("<h1 style='text-align: center; color: #ff9900;'>RC</h1>", unsafe_allow_html=True)
 
-        # PROJECT TITLE
+        # 4. PROJECT TITLE
         st.markdown("""
-            <div style='text-align: center; margin-top: 10px;'>
-                <h1 style='color: white; letter-spacing: 2px; font-size: clamp(35px, 6vw, 65px); font-weight: 800;'>
+            <div style='text-align: center;'>
+                <h1 style='color: white; letter-spacing: 2px; font-size: clamp(30px, 6vw, 70px); 
+                margin-top: -5vw; font-weight: 800;'>
                     🧠 QUERY-MATCH AI
                 </h1>
             </div>
         """, unsafe_allow_html=True)
 
-        # DESIGNERS BOX
+        # 5. DESIGNERS BOX
         st.markdown(f"""
-            <div style='background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; 
-            border: 1px solid #444; margin-top: 25px; text-align: center;'>
-                <p style='color: #8ab4f8; font-weight: bold; margin-bottom: 5px; font-size: 14px;'>PROJECT BY</p>
-                <div style='color: #ccff00; font-weight: bold; font-size: clamp(16px, 2.5vw, 24px);'>
+            <div style='background: rgba(255,255,255,0.03); padding: 2vw; border-radius: 15px; 
+            border: 1px solid #444; margin-top: 3vw; text-align: center;'>
+                <p style='color: #8ab4f8; font-weight: bold; margin-bottom: 5px; font-size: clamp(12px, 2vw, 16px);'>PROJECT BY</p>
+                <div style='color: #ccff00; font-weight: bold; font-size: clamp(14px, 2.5vw, 24px); text-shadow: 0 0 10px rgba(204,255,0,0.3);'>
                     SUMA SREE | JHANSI TANUJA | NAVYA SRI
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
         st.write("")
-        # LAUNCH BUTTON
+        # 6. LAUNCH BUTTON
         if st.button("LAUNCH SEARCH 🚀", use_container_width=True):
             st.session_state.active = True
             st.rerun()
+      
 
 # ==================== SEARCH PAGE ====================
 else:
