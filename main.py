@@ -48,19 +48,19 @@ if not st.session_state.active:
         st.write("") 
 
     # 2. Layout Column
-    _, col, _ = st.columns([0.1, 5, 0.1])
+    _, col, _ = st.columns([1, 3, 1])
     
     with col:
         # --- LOGO BLOCK ---
         try:
-            st.image(LOGO_FILE, use_container_width=True)
+            st.image(LOGO_FILE, width=2000)
             
             # 3. DEPARTMENT NAME (Gap fix using negative margin)
             # margin-top: -180px gap ni thaggisthundhi
             st.markdown("""
                 <div style='text-align: center;'>
-                    <p style='color: #FFDF00; font-size: clamp(20px, 4vw, 32px); font-weight: bold; 
-                    margin-top: -180px; margin-bottom: 0px;'>
+                    <p style='color: #FFDF00; font-size: clamp(20px, 4vw, 24px); font-weight: bold; 
+                    margin-top: -80px; margin-bottom: 0px;'>
                         DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE
                     </p>
                     <hr style='margin: 15px auto; width: 80%; border: 0.5px solid #444;'>
@@ -73,7 +73,7 @@ if not st.session_state.active:
         # clamp function valla font size phone lo chinnadhi, PC lo peddhadi avthundhi
         st.markdown("""
             <div style='text-align: center; width: 100%;'>
-                <h1 style='color: white; letter-spacing: 4px; font-size: clamp(40px, 7vw, 75px); 
+                <h1 style='color: white; letter-spacing: 4px; font-size: clamp(40px, 7vw, 65px); 
                 margin-top: 10px; font-weight: 800;'>
                     🧠 QUERY-MATCH AI
                 </h1>
