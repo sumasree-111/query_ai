@@ -41,51 +41,56 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # ==================== HOME PAGE (CENTERED LAYOUT) ====================
-# ==================== HOME PAGE (CENTERED & GAP FIX) ====================
+# ==================== HOME PAGE (RESPONSIVE FIX) ====================
 if not st.session_state.active:
     # 1. Spacing for Vertical Center
-    for _ in range(4): 
+    for _ in range(3): 
         st.write("") 
 
     # 2. Layout Column
-    _, col, _ = st.columns([1, 3, 1])
+    _, col, _ = st.columns([0.1, 5, 0.1])
     
     with col:
         # --- LOGO BLOCK ---
         try:
-            st.image(LOGO_FILE, width=2000)
-            
-            # 3. DEPARTMENT NAME (Gap fix using negative margin)
-            # margin-top: -180px gap ni thaggisthundhi
-            st.markdown("""
-                <div style='text-align: center;'>
-                    <p style='color: #FFDF00; font-size: clamp(20px, 4vw, 32px); font-weight: bold; 
-                    margin-top: -180px; margin-bottom: 0px;'>
+            # HTML method vadi responsive ga gap control chesthunnam
+            st.markdown(f"""
+                <div style='text-align: center; display: flex; flex-direction: column; align-items: center;'>
+                    <img src="https://raw.githubusercontent.com/user-attachments/assets/logo_file" 
+                         style='width: 70%; max-width: 600px; height: auto;'>
+                    
+                    <p style='color: #FFDF00; font-size: clamp(16px, 3vw, 30px); font-weight: bold; 
+                    margin-top: -8vw; margin-bottom: 0px; text-transform: uppercase;'>
                         DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE
                     </p>
-                    <hr style='margin: 15px auto; width: 80%; border: 0.5px solid #444;'>
+                    
+                    <hr style='margin: 2vw auto; width: 80%; border: 0.5px solid #444;'>
                 </div>
             """, unsafe_allow_html=True)
+            
+            # Note: పై HTML image logic work avvalante LOGO_FILE local ga upload ayyi undali.
+            # Local file kabatti normal Streamlit image vaduthu kinda negative margin thaggiddham:
+            st.image(LOGO_FILE, use_container_width=True)
+            
         except:
             st.markdown("<h1 style='text-align: center; color: #ff9900;'>RC</h1>", unsafe_allow_html=True)
 
-        # 4. PROJECT TITLE (Responsive Middle)
-        # clamp function valla font size phone lo chinnadhi, PC lo peddhadi avthundhi
+        # 4. PROJECT TITLE
         st.markdown("""
-            <div style='text-align: center; width: 100%;'>
-                <h1 style='color: white; letter-spacing: 4px; font-size: clamp(40px, 7vw, 75px); 
-                margin-top: 10px; font-weight: 800;'>
+            <div style='text-align: center;'>
+                <h1 style='color: white; letter-spacing: 2px; font-size: clamp(30px, 6vw, 70px); 
+                margin-top: -5vw; font-weight: 800;'>
                     🧠 QUERY-MATCH AI
                 </h1>
             </div>
         """, unsafe_allow_html=True)
 
-        # 5. DESIGNERS BOX (Colors & Font Same for all)
+        # 5. DESIGNERS BOX
         st.markdown(f"""
-            <div style='background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; 
-            border: 1px solid #444; margin-top: 30px; text-align: center;'>
-                <p style='color: #8ab4f8; font-weight: bold; margin-bottom: 5px; font-size: 14px;'>PROJECT BY</p>
-                <div class='name-tag' style='font-size: clamp(18px, 3vw, 24px);'>
+            <div style='background: rgba(255,255,255,0.03); padding: 2vw; border-radius: 15px; 
+            border: 1px solid #444; margin-top: 3vw; text-align: center;'>
+                <p style='color: #8ab4f8; font-weight: bold; margin-bottom: 5px; font-size: clamp(12px, 2vw, 16px);'>PROJECT BY</p>
+                <div style='color: #ccff00; font-weight: bold; font-size: clamp(14px, 2.5vw, 24px); text-shadow: 0 0 10px rgba(204,255,0,0.3);'>
                     SUMA SREE | JHANSI TANUJA | NAVYA SRI
                 </div>
             </div>
