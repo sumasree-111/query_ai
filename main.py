@@ -41,73 +41,83 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # ==================== HOME PAGE (CENTERED LAYOUT) ====================
-# ==================== HOME PAGE (FINAL CLEAN VERSION) ====================
+# ==================== HOME PAGE (CENTERED & SCROLL-FREE) ====================
 if not st.session_state.active:
-    # 1. PC & Mobile Scroll Fix CSS
     st.markdown("""
         <style>
-        .stApp { overflow: hidden !important; background: #000000 !important; }
+        /* Background black & Hide Scroll */
+        .stApp { background: #000000 !important; overflow: hidden !important; }
         
-        .full-screen-container {
-            height: 90vh;
+        /* Main Container for vertical centering */
+        .main-hero {
+            height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 10px;
-        }
-        
-        .dept-text {
-            color: #FFDF00;
-            font-weight: bold;
-            font-size: clamp(14px, 2.5vw, 20px);
-            margin-top: 10px;
-            margin-bottom: 10px;
+            padding: 0 10px;
         }
 
-        /* Designers Box Adjustment */
-        .design-box {
-            background: rgba(255,255,255,0.03); 
-            padding: 15px; 
-            border-radius: 15px; 
-            border: 1px solid #444; 
-            width: 90%; 
-            max-width: 500px;
-            margin-bottom: 20px;
+        /* Logo Responsive Size */
+        .logo-img {
+            width: 100%;
+            max-width: 350px; /* PC lo logo maree peddhaga rakunda */
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        .dept-title {
+            color: #FFDF00;
+            font-weight: bold;
+            font-size: clamp(14px, 2vw, 20px);
+            margin-top: 5px;
+        }
+
+        .project-title {
+            color: white;
+            font-size: clamp(35px, 6vw, 60px);
+            font-weight: 800;
+            margin: 15px 0;
+            letter-spacing: 2px;
+        }
+
+        .names-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 550px;
+            margin-bottom: 25px;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # 2. Main Container Starts
-    st.markdown('<div class="full-screen-container">', unsafe_allow_html=True)
-    
-    # --- LOGO SECTION ---
-    try:
-        # Streamlit standard image function vaaduthunnam (safe for local files)
-        # width ni 350-400 madhya unchu, PC lo scroll raadu
-        st.image(LOGO_FILE, width=380) 
-        
-        # Dept Name
-        st.markdown('<p class="dept-text">DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE</p>', unsafe_allow_html=True)
-        st.markdown('<hr style="width: 60%; border: 0.5px solid #444; margin: 0 auto 15px auto;">', unsafe_allow_html=True)
-    except:
-        st.markdown("<h1 style='color: #ff9900;'>RC</h1>", unsafe_allow_html=True)
+    # Content Wrapper
+    st.markdown('<div class="main-hero">', unsafe_allow_html=True)
 
-    # --- TITLE ---
-    st.markdown("<h1 style='color: white; font-size: clamp(30px, 6vw, 55px); font-weight: 800; margin: 0;'>🧠 QUERY-MATCH AI</h1>", unsafe_allow_html=True)
+    # 1. Logo (Using HTML for better centering)
+    st.markdown(f'<img src="https://raw.githubusercontent.com/sumasree-111/queryai/main/{LOGO_FILE}" class="logo-img">', unsafe_allow_html=True)
 
-    # --- DESIGNERS BOX ---
-    st.markdown(f"""
-        <div class="design-box">
-            <p style='color: #8ab4f8; font-weight: bold; margin-bottom: 5px; font-size: 12px;'>PROJECT BY</p>
-            <div style='color: #ccff00; font-weight: bold; font-size: clamp(14px, 2.2vw, 20px);'>
+    # 2. Dept Name
+    st.markdown('<p class="dept-title">DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE</p>', unsafe_allow_html=True)
+    st.markdown('<hr style="width: 50%; border: 0.5px solid #333; margin: 10px auto;">', unsafe_allow_html=True)
+
+    # 3. Project Name
+    st.markdown('<h1 class="project-title">🧠 QUERY-MATCH AI</h1>', unsafe_allow_html=True)
+
+    # 4. Names Box
+    st.markdown("""
+        <div class="names-container">
+            <p style='color: #8ab4f8; font-size: 12px; margin-bottom: 5px; font-weight: bold;'>PROJECT BY</p>
+            <p style='color: #ccff00; font-weight: bold; font-size: clamp(16px, 2.5vw, 22px); margin: 0;'>
                 SUMA SREE | JHANSI TANUJA | NAVYA SRI
-            </div>
+            </p>
         </div>
     """, unsafe_allow_html=True)
 
-    # --- LAUNCH BUTTON ---
+    # 5. Launch Button
     if st.button("LAUNCH SEARCH 🚀", use_container_width=True):
         st.session_state.active = True
         st.rerun()
