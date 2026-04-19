@@ -40,90 +40,82 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# ==================== HOME PAGE (CENTERED LAYOUT) ====================
-# ==================== HOME PAGE (CENTERED & SCROLL-FREE) ====================
+# ==================== HOME PAGE (CENTERED LAYOUT) 
+# ==================== HOME PAGE (CENTERED & LOGO FIX) ====================
 if not st.session_state.active:
     st.markdown("""
         <style>
         /* Background black & Hide Scroll */
         .stApp { background: #000000 !important; overflow: hidden !important; }
         
-        /* Main Container for vertical centering */
-        .main-hero {
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* Text Centering Classes */
+        .center-content {
             text-align: center;
-            padding: 0 10px;
-        }
-
-        /* Logo Responsive Size */
-        .logo-img {
             width: 100%;
-            max-width: 350px; /* PC lo logo maree peddhaga rakunda */
-            height: auto;
-            margin-bottom: 5px;
         }
-
+        
         .dept-title {
             color: #FFDF00;
             font-weight: bold;
             font-size: clamp(14px, 2vw, 20px);
-            margin-top: 5px;
+            margin-bottom: 0px;
         }
 
         .project-title {
             color: white;
-            font-size: clamp(35px, 6vw, 60px);
+            font-size: clamp(30px, 5vw, 50px);
             font-weight: 800;
-            margin: 15px 0;
-            letter-spacing: 2px;
+            margin-top: 10px;
         }
 
         .names-container {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #444;
             border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 550px;
-            margin-bottom: 25px;
+            padding: 15px;
+            margin: 20px auto;
+            width: 100%;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # Content Wrapper
-    st.markdown('<div class="main-hero">', unsafe_allow_html=True)
+    # 1. Vertical Spacing (Paiki thoyyadaniki)
+    for _ in range(3): st.write("")
 
-    # 1. Logo (Using HTML for better centering)
-    st.markdown(f'<img src="https://raw.githubusercontent.com/sumasree-111/queryai/main/{LOGO_FILE}" class="logo-img">', unsafe_allow_html=True)
+    # 2. Centering using Columns
+    col1, col2, col3 = st.columns([1, 4, 1])
 
-    # 2. Dept Name
-    st.markdown('<p class="dept-title">DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE</p>', unsafe_allow_html=True)
-    st.markdown('<hr style="width: 50%; border: 0.5px solid #333; margin: 10px auto;">', unsafe_allow_html=True)
+    with col2:
+        # --- LOGO ---
+        try:
+            st.image(LOGO_FILE, use_container_width=True)
+        except:
+            st.markdown("<h2 style='color:orange;'>LOGO MISSING</h2>", unsafe_allow_html=True)
 
-    # 3. Project Name
-    st.markdown('<h1 class="project-title">🧠 QUERY-MATCH AI</h1>', unsafe_allow_html=True)
+        # --- DEPT NAME ---
+        st.markdown(f'<div class="center-content"><p class="dept-title">DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE</p></div>', unsafe_allow_html=True)
+        st.write("---")
 
-    # 4. Names Box
-    st.markdown("""
-        <div class="names-container">
-            <p style='color: #8ab4f8; font-size: 12px; margin-bottom: 5px; font-weight: bold;'>PROJECT BY</p>
-            <p style='color: #ccff00; font-weight: bold; font-size: clamp(16px, 2.5vw, 22px); margin: 0;'>
-                SUMA SREE | JHANSI TANUJA | NAVYA SRI
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
+        # --- PROJECT TITLE ---
+        st.markdown(f'<div class="center-content"><h1 class="project-title">🧠 QUERY-MATCH AI</h1></div>', unsafe_allow_html=True)
 
-    # 5. Launch Button
-    if st.button("LAUNCH SEARCH 🚀", use_container_width=True):
-        st.session_state.active = True
-        st.rerun()
+        # --- DESIGNERS BOX ---
+        st.markdown(f"""
+            <div class="names-container center-content">
+                <p style='color: #8ab4f8; font-size: 12px; margin-bottom: 5px; font-weight: bold;'>PROJECT BY</p>
+                <p style='color: #ccff00; font-weight: bold; font-size: clamp(14px, 2.2vw, 20px); margin: 0;'>
+                    SUMA SREE | JHANSI TANUJA | NAVYA SRI
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
+        # --- LAUNCH BUTTON ---
+        if st.button("LAUNCH SEARCH 🚀", use_container_width=True):
+            st.session_state.active = True
+            st.rerun()
 
+    # 3. Vertical Spacing (Kinda scroll thagginchadaniki)
+    for _ in range(2): st.write("")
 
 # ==================== SEARCH PAGE ====================
 else:
