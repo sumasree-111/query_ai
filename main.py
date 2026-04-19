@@ -41,61 +41,80 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # ==================== HOME PAGE (CENTERED LAYOUT) ====================
-    # ==================== HOME PAGE (CENTERED & GAP FIX) ====================
+# ==================== HOME PAGE (SCROLL-FREE & RESPONSIVE) ====================
 if not st.session_state.active:
-    # 1. Spacing for Vertical Center
-    for _ in range(4): 
-        st.write("") 
+    # 1. PC lo scroll lekunda content ni okka screen lo unchadaniki CSS
+    st.markdown("""
+        <style>
+        /* Mothom App background black chesi, scroll ni hide chesthunnam */
+        .stApp { overflow: hidden !important; background: #000000 !important; }
+        
+        /* Content ni screen madhyaloki theche container */
+        .full-screen-container {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        /* Logo size PC lo thagginchi mobile lo adjust chesthunnam */
+        .responsive-logo {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            margin-bottom: -40px; /* Logo ki text ki madhya gap thaggisthundi */
+        }
 
-    # 2. Layout Column
-    _, col, _ = st.columns([1, 3, 1])
+        .dept-text {
+            color: #FFDF00;
+            font-weight: bold;
+            font-size: clamp(14px, 2.5vw, 22px);
+            margin-top: -20px;
+            margin-bottom: 20px;
+            z-index: 10;
+        }
+
+        @media screen and (max-width: 600px) {
+            .responsive-logo { max-width: 280px; margin-bottom: -20px; }
+            .full-screen-container { height: 90vh; }
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # 2. Centered Layout Construction
+    st.markdown('<div class="full-screen-container">', unsafe_allow_html=True)
     
-    with col:
-        # --- LOGO BLOCK ---
-        try:
-            st.image(LOGO_FILE, width=2000)
-            
-            # 3. DEPARTMENT NAME (Gap fix using negative margin)
-            # margin-top: -180px gap ni thaggisthundhi
-            st.markdown("""
-                <div style='text-align: center;'>
-                    <p style='color: #FFDF00; font-size: clamp(20px, 4vw, 24px); font-weight: bold; 
-                    margin-top: -80px; margin-bottom: 0px;'>
-                        DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE
-                    </p>
-                    <hr style='margin: 15px auto; width: 80%; border: 0.5px solid #444;'>
-                </div>
-            """, unsafe_allow_html=True)
-        except:
-            st.markdown("<h1 style='text-align: center; color: #ff9900;'>RC</h1>", unsafe_allow_html=True)
+    # Logo
+    try:
+        st.markdown(f'<img src="https://raw.githubusercontent.com/user-attachments/assets/logo_file" class="responsive-logo">', unsafe_allow_html=True)
+        # Dept Name
+        st.markdown('<p class="dept-text">DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE</p>', unsafe_allow_html=True)
+        st.markdown('<hr style="width: 70%; border: 0.5px solid #444; margin: 10px auto;">', unsafe_allow_html=True)
+    except:
+        st.markdown("<h1 style='color: #ff9900;'>RC</h1>", unsafe_allow_html=True)
 
-        # 4. PROJECT TITLE (Responsive Middle)
-        # clamp function valla font size phone lo chinnadhi, PC lo peddhadi avthundhi
-        st.markdown("""
-            <div style='text-align: center; width: 100%;'>
-                <h1 style='color: white; letter-spacing: 4px; font-size: clamp(40px, 7vw, 65px); 
-                margin-top: 10px; font-weight: 800;'>
-                    🧠 QUERY-MATCH AI
-                </h1>
+    # Title
+    st.markdown("<h1 style='color: white; font-size: clamp(35px, 6vw, 60px); font-weight: 800; margin: 10px 0;'>🧠 QUERY-MATCH AI</h1>", unsafe_allow_html=True)
+
+    # Designers
+    st.markdown(f"""
+        <div style='background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; border: 1px solid #444; width: 80%; max-width: 500px;'>
+            <p style='color: #8ab4f8; font-weight: bold; margin-bottom: 5px; font-size: 12px;'>PROJECT BY</p>
+            <div class='name-tag' style='font-size: clamp(16px, 2vw, 22px);'>
+                SUMA SREE | JHANSI TANUJA | NAVYA SRI
             </div>
-        """, unsafe_allow_html=True)
+        </div>
+    """, unsafe_allow_html=True)
 
-        # 5. DESIGNERS BOX (Colors & Font Same for all)
-        st.markdown(f"""
-            <div style='background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; 
-            border: 1px solid #444; margin-top: 30px; text-align: center;'>
-                <p style='color: #8ab4f8; font-weight: bold; margin-bottom: 5px; font-size: 14px;'>PROJECT BY</p>
-                <div class='name-tag' style='font-size: clamp(18px, 3vw, 24px);'>
-                    SUMA SREE | JHANSI TANUJA | NAVYA SRI
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
+    # Launch Button (st.write gap thaggincha)
+    st.write("")
+    if st.button("LAUNCH SEARCH 🚀", use_container_width=True):
+        st.session_state.active = True
+        st.rerun()
 
-        st.write("")
-        # 6. LAUNCH BUTTON
-        if st.button("LAUNCH SEARCH 🚀", use_container_width=True):
-            st.session_state.active = True
-            st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
       
 
 # ==================== SEARCH PAGE ====================
