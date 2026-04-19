@@ -41,81 +41,79 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # ==================== HOME PAGE (CENTERED LAYOUT) ====================
-# ==================== HOME PAGE (SCROLL-FREE & RESPONSIVE) ====================
+# ==================== HOME PAGE (FINAL CLEAN VERSION) ====================
 if not st.session_state.active:
-    # 1. PC lo scroll lekunda content ni okka screen lo unchadaniki CSS
+    # 1. PC & Mobile Scroll Fix CSS
     st.markdown("""
         <style>
-        /* Mothom App background black chesi, scroll ni hide chesthunnam */
         .stApp { overflow: hidden !important; background: #000000 !important; }
         
-        /* Content ni screen madhyaloki theche container */
         .full-screen-container {
-            height: 85vh;
+            height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 10px;
         }
         
-        /* Logo size PC lo thagginchi mobile lo adjust chesthunnam */
-        .responsive-logo {
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            margin-bottom: -40px; /* Logo ki text ki madhya gap thaggisthundi */
-        }
-
         .dept-text {
             color: #FFDF00;
             font-weight: bold;
-            font-size: clamp(14px, 2.5vw, 22px);
-            margin-top: -20px;
-            margin-bottom: 20px;
-            z-index: 10;
+            font-size: clamp(14px, 2.5vw, 20px);
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
-        @media screen and (max-width: 600px) {
-            .responsive-logo { max-width: 280px; margin-bottom: -20px; }
-            .full-screen-container { height: 90vh; }
+        /* Designers Box Adjustment */
+        .design-box {
+            background: rgba(255,255,255,0.03); 
+            padding: 15px; 
+            border-radius: 15px; 
+            border: 1px solid #444; 
+            width: 90%; 
+            max-width: 500px;
+            margin-bottom: 20px;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # 2. Centered Layout Construction
+    # 2. Main Container Starts
     st.markdown('<div class="full-screen-container">', unsafe_allow_html=True)
     
-    # Logo
+    # --- LOGO SECTION ---
     try:
-        st.markdown(f'<img src="https://raw.githubusercontent.com/user-attachments/assets/logo_file" class="responsive-logo">', unsafe_allow_html=True)
+        # Streamlit standard image function vaaduthunnam (safe for local files)
+        # width ni 350-400 madhya unchu, PC lo scroll raadu
+        st.image(LOGO_FILE, width=380) 
+        
         # Dept Name
         st.markdown('<p class="dept-text">DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE</p>', unsafe_allow_html=True)
-        st.markdown('<hr style="width: 70%; border: 0.5px solid #444; margin: 10px auto;">', unsafe_allow_html=True)
+        st.markdown('<hr style="width: 60%; border: 0.5px solid #444; margin: 0 auto 15px auto;">', unsafe_allow_html=True)
     except:
         st.markdown("<h1 style='color: #ff9900;'>RC</h1>", unsafe_allow_html=True)
 
-    # Title
-    st.markdown("<h1 style='color: white; font-size: clamp(35px, 6vw, 60px); font-weight: 800; margin: 10px 0;'>🧠 QUERY-MATCH AI</h1>", unsafe_allow_html=True)
+    # --- TITLE ---
+    st.markdown("<h1 style='color: white; font-size: clamp(30px, 6vw, 55px); font-weight: 800; margin: 0;'>🧠 QUERY-MATCH AI</h1>", unsafe_allow_html=True)
 
-    # Designers
+    # --- DESIGNERS BOX ---
     st.markdown(f"""
-        <div style='background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; border: 1px solid #444; width: 80%; max-width: 500px;'>
+        <div class="design-box">
             <p style='color: #8ab4f8; font-weight: bold; margin-bottom: 5px; font-size: 12px;'>PROJECT BY</p>
-            <div class='name-tag' style='font-size: clamp(16px, 2vw, 22px);'>
+            <div style='color: #ccff00; font-weight: bold; font-size: clamp(14px, 2.2vw, 20px);'>
                 SUMA SREE | JHANSI TANUJA | NAVYA SRI
             </div>
         </div>
     """, unsafe_allow_html=True)
 
-    # Launch Button (st.write gap thaggincha)
-    st.write("")
+    # --- LAUNCH BUTTON ---
     if st.button("LAUNCH SEARCH 🚀", use_container_width=True):
         st.session_state.active = True
         st.rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
-      
+
 
 # ==================== SEARCH PAGE ====================
 else:
